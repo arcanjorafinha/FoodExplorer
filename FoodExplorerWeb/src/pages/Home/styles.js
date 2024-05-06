@@ -6,42 +6,13 @@ export const Container = styled.div`
     height: 100vh;
 
     display: grid;
-    grid-template-columns: 250px auto;
-    grid-auto-rows: 105px 128px auto 64px;
     grid-template-areas:
-    "brand header"
-    "menu search"
-    "menu content"
-    "newnote content";
+    "header"
+    "search"
+    "content"
+    "content";
 
-    background-color: ${({ theme }) => theme.COLORS.BACKGROUND_800};
-`;
-export const Brand = styled.div`
-    grid-area: brand;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
-    border-bottom-color: ${({ theme }) => theme.COLORS.BACKGROUND_700};
-    background-color: ${({ theme }) => theme.COLORS.BACKGROUND_900};
-
-    >h1{
-        font-size: 24px;
-        color: ${({ theme }) => theme.COLORS.ORANGE};
-    }
-`;
-export const Menu = styled.div`
-    grid-area: menu;
-    color: ${({ theme }) => theme.COLORS.BACKGROUND_900};
-
-    padding-top: 64px;
-    text-align: center;
-
-    > li{
-        margin-bottom: 24px;
-    }
+    background-color: ${({ theme }) => theme.COLORS.DARK_400};
 `;
 export const Search = styled.div`
     grid-area: search;
@@ -51,17 +22,4 @@ export const Content = styled.div`
     grid-area: content;
     padding: 0 64px ;
     overflow-y: auto;
-`;
-export const NewNote = styled(Link)`
-    grid-area: newnote;
-    background-color: ${({ theme }) => theme.COLORS.ORANGE};
-    color: ${({ theme }) => theme.COLORS.BACKGROUND_900};
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    svg{
-        margin-right: 8px;
-    }
-
 `;

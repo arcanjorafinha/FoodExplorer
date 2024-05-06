@@ -1,13 +1,12 @@
-import { Container, Brand, Menu, Search, Content, NewNote } from './styles';
-import { FiPlus, FiSearch } from 'react-icons/fi';
+import { Container, Search, Content } from './styles';
 import { useState, useEffect } from 'react';
 import { api } from '../../services/api';
 import { useNavigate } from 'react-router-dom'
-import { Header } from '../../components/Header';
 import { ButtonText } from '../../components/ButtonText';
 import { Input } from '../../components/Input';
 import { Section } from '../../components/Section';
 import { Note } from '../../components/Note';
+import { Header } from '../../components/Header';
 
 export function Home() {
     const [tags, setTags] = useState([]);
@@ -57,38 +56,12 @@ export function Home() {
 
     return (
         <Container>
-            <Brand>
-                <h1>RocketNotes</h1>
-            </Brand>
-            <Header>
-
-            </Header>
-            <Menu>
-                <li>
-                    <ButtonText
-                        title="Todos"
-                        $isactive={tagsSelected.length === 0}
-                        onClick={() => handleTagsSelected("all")}
-
-                    />
-                </li>
-                {
-                    tags && tags.map(tag => (
-                        <li key={String(tag.id)} >
-                            <ButtonText
-                                title={tag.name}
-                                onClick={() => handleTagsSelected(tag.name)}
-                                $isactive={tagsSelected.includes(tag.name)}
-                            />
-                        </li>
-                    ))
-                }
-            </Menu>
+            <Header />
             <Search>
                 <Input
                     placeholder="Pesquisar pelo título"
                     onChange={(e) => setSearch(e.target.value)}
-                    icon={FiSearch} />
+                />
             </Search>
             <Content>
                 <Section title="Minhas Notas" >
@@ -104,10 +77,6 @@ export function Home() {
 
                 </Section>
             </Content>
-            <NewNote to="/new" >
-                <FiPlus />
-                Criar Nota
-            </NewNote>
         </Container>
     )
 }

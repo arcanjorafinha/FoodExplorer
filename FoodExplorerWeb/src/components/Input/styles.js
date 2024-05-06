@@ -6,7 +6,6 @@ export const Container = styled.div`
     flex-direction: column;
     align-items: center;
 
-    background-color: ${({ theme }) => theme.COLORS.DARK_700};
     color: ${({ theme }) => theme.COLORS.LIGHT_100};
 
     margin-bottom: 32px;
@@ -16,17 +15,21 @@ export const Container = styled.div`
         width: 100%;
 
         color: ${({ theme }) => theme.COLORS.LIGHT_100};
-        border: 2px solid ${({ theme }) => theme.COLORS.LIGHT_100};
+        border: none;
 
         padding: 12px;
 
-        background: transparent;
+        background-color: ${({ theme }) => theme.COLORS.DARK_900};
         border-radius: 5px;
 
         &:placeholder{
             color: ${({ theme }) => theme.COLORS.LIGHT_100};
         }
 
+    }
+
+    >input:focus{
+        border: 2px solid ${({ theme }) => theme.COLORS.LIGHT_100};
     }
 
 `;

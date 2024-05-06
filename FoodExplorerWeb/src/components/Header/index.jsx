@@ -1,10 +1,13 @@
 import { RiShutDownLine } from 'react-icons/ri';
-import { Container, Profile, Logout } from "./styles";
+import { Container, Logout, Logo } from "./styles";
 import { useAuth } from "../../hooks/auth";
 import { useNavigate } from 'react-router-dom';
+import Polygon from "../../assets/icons/Polygon.svg";
+import { Input } from "../../components/Input";
+import { Button } from "../../components/Button";
 
 export function Header() {
-    const { signOut, user } = useAuth();
+    const { signOut } = useAuth();
     const navigation = useNavigate();
 
     function handleSignOut() {
@@ -14,15 +17,16 @@ export function Header() {
 
     return (
         <Container>
-            <Profile to="/profile" >
+            <Logo>
+                <img src={Polygon} alt="Poligono" />
+                <p>food explorer</p>
+            </Logo>
+            <Input
+                type="text"
+                placeholder="Busque por pratos ou igredientes"
 
-                <div>
-                    <span>Bem-Vindo</span>
-                    <strong>{user.name}</strong>
-                </div>
-
-            </Profile>
-
+            />
+            <Button></Button>
             <Logout onClick={handleSignOut} >
                 <RiShutDownLine />
             </Logout>
