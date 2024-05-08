@@ -1,10 +1,12 @@
 import { RiShutDownLine } from 'react-icons/ri';
-import { Container, Logout, Logo } from "./styles";
+import { Container, Logout, Logo, Button } from "./styles";
 import { useAuth } from "../../hooks/auth";
 import { useNavigate } from 'react-router-dom';
 import Polygon from "../../assets/icons/Polygon.svg";
 import { Input } from "../../components/Input";
-import { Button } from "../../components/Button";
+import { FiSearch } from 'react-icons/fi';
+import Receipt from "../../assets/icons/Receipt.svg";
+import SignOut from "../../assets/icons/SignOut.svg";
 
 export function Header() {
     const { signOut } = useAuth();
@@ -24,11 +26,13 @@ export function Header() {
             <Input
                 type="text"
                 placeholder="Busque por pratos ou igredientes"
-
             />
-            <Button></Button>
+            <Button>
+                <img src={Receipt} alt="Receita" />
+                <p>Pedidos(0)</p>
+            </Button>
             <Logout onClick={handleSignOut} >
-                <RiShutDownLine />
+                <img src={SignOut} alt="Sair" />
             </Logout>
         </Container>
     )

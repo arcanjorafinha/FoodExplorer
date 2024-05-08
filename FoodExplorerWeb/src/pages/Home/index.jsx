@@ -1,12 +1,12 @@
-import { Container, Search, Content } from './styles';
+import { Container, BodyContainer, Menu, Advertisement } from './styles';
 import { useState, useEffect } from 'react';
 import { api } from '../../services/api';
 import { useNavigate } from 'react-router-dom'
-import { ButtonText } from '../../components/ButtonText';
-import { Input } from '../../components/Input';
-import { Section } from '../../components/Section';
-import { Note } from '../../components/Note';
+import { Footer } from '../../components/Footer';
 import { Header } from '../../components/Header';
+import { Card } from '../../components/Card';
+import Macaron2 from '../../assets/plates/Macaron2.png';
+
 
 export function Home() {
     const [tags, setTags] = useState([]);
@@ -57,26 +57,38 @@ export function Home() {
     return (
         <Container>
             <Header />
-            <Search>
-                <Input
-                    placeholder="Pesquisar pelo título"
-                    onChange={(e) => setSearch(e.target.value)}
-                />
-            </Search>
-            <Content>
-                <Section title="Minhas Notas" >
-                    {
-                        notes.map(note => (
-                            <Note
-                                key={String(note.id)}
-                                data={note}
-                                onClick={() => handleDetails(note.id)}
-                            />
-                        ))
-                    }
-
-                </Section>
-            </Content>
+            <BodyContainer>
+                <Advertisement>
+                    <img src={Macaron2} alt="" />
+                    <div>
+                        <h1>Sabores Inigualáveis</h1>
+                        <h2>Sinta o cuidado do preparo com igredientes selecionados</h2>
+                    </div>
+                </Advertisement>
+                <Menu>
+                    <h1>Refeições</h1>
+                    <div>
+                        <Card />
+                        <Card />
+                        <Card />
+                        <Card />
+                        <Card />
+                        <Card />
+                    </div>
+                </Menu>
+                <Menu>
+                    <h1>Refeições</h1>
+                    <div>
+                        <Card />
+                        <Card />
+                        <Card />
+                        <Card />
+                        <Card />
+                        <Card />
+                    </div>
+                </Menu>
+            </BodyContainer>
+            <Footer />
         </Container>
     )
 }
