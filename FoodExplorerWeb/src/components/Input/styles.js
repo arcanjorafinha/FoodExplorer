@@ -9,7 +9,7 @@ export const Container = styled.div`
     color: ${({ theme }) => theme.COLORS.LIGHT_100};
 
     >input{
-        height: 56px;
+        max-height: 56px;
         width: 100%;
         min-width: 200px;
 
@@ -22,7 +22,7 @@ export const Container = styled.div`
         border-radius: 5px;
 
         &:placeholder{
-            color: ${({ theme }) => theme.COLORS.LIGHT_100};
+            color: ${({ theme }) => theme.COLORS.LIGHT_500};
         }
 
     }
@@ -39,6 +39,6 @@ export const Container = styled.div`
 
 export const Label = styled.label`
     align-self: flex-start;
-    margin-bottom: 3px;
+    margin-bottom: 12px;
     font-size: 16px;
 `;

@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 export const Container = styled.header`
+    grid-area: 'header';
     background-color: ${({ theme }) => theme.COLORS.DARK_600};
     align-items:center;
 

@@ -1,6 +1,4 @@
 import styled from "styled-components";
-import CaretLeft from "../../assets/icons/CaretLeft.svg";
-import CaretRight from "../../assets/icons/CaretRight.svg";
 
 export const BodyContainer = styled.div`
     width: 100%;
@@ -58,7 +56,8 @@ export const Menu = styled.div`
         height: 100%;
         background: linear-gradient(90deg, #000a0f 15%, rgba(0, 10, 15, 0.1) 95%);
         transition: opacity 0.4s ease;
-        z-index: 2; /* Z-index do gradiente */
+        z-index: 2; 
+        pointer-events: none;
     }
 
     &::after {
@@ -70,22 +69,42 @@ export const Menu = styled.div`
         height: 100%;
         background: linear-gradient(90deg, rgba(0, 10, 15, 0.1) 0%, #000a0f 95%);
         transition: opacity 0.4s ease;
-        z-index: 2; /* Z-index do gradiente */
+        z-index: 2;
+        pointer-events: none; 
     }
+
+    > .MenuButtons{
+        width: 100%;
+        position: absolute;
+        z-index: 4;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 30px;
+        pointer-events: none;
+
+        >button{
+        height: 50px;
+        width: 50px;
+        background: none;
+        border: none;
+        pointer-events: all;
+        }
+    }
+
 
     > div {
         display: flex;
         gap: 27px;
         min-height: 500px;
-        padding: 30px 0;
+        padding: 30px 130px;
         overflow-x: auto;
         position: relative;
-        z-index: 1; /* Z-index da div */
+        z-index: 1; 
     }
 
     > h1 {
         position: relative;
-        z-index: 3; /* Z-index do título, se necessário */
+        z-index: 3; 
     }
 `;
 

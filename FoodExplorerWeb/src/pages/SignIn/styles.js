@@ -23,6 +23,7 @@ export const Form = styled.form`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 32px;
 
     text-align: center;
 

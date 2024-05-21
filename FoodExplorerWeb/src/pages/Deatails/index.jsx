@@ -1,83 +1,43 @@
-import { Container, Links, Content } from "./styles"
-import { useParams, useNavigate } from "react-router-dom"
-import { useState, useEffect } from 'react'
+import { Container, Main, Plate } from "./styles"
+import { useNavigate } from "react-router-dom"
 import { Header } from "../../components/Header"
+import { Footer } from "../../components/Footer"
+import { Counter } from "../../components/Counter"
 import { Button } from "../../components/Button"
-import { Section } from "../../components/Section"
-import { Tag } from "../../components/Tag"
-import { ButtonText } from "../../components/ButtonText"
-import { api } from "../../services/api"
+import CaretLeft from "../../assets/icons/CaretLeft.svg";
+import GambePlate from "../../assets/plates/Gambe.png";
+
 
 export function Details() {
-  const [data, setData] = useState(null);
 
-  const params = useParams();
   const navigate = useNavigate();
-
 
   function handleBack() {
     navigate(-1);
   }
 
-  async function handleRemove() {
-    const confirm = window.confirm("Deseja realmente remover a nota?");
-
-    if (confirm) {
-      await api.delete(`/notes/${params.id}`);
-      navigate(-1)
-    }
-  }
-
-  useEffect(() => {
-    async function fetchNote() {
-      const response = await api.get(`/notes/${params.id}`);
-      setData(response.data);
-    }
-
-    fetchNote();
-  }, [])
-
   return (
     <Container>
       <Header />
-      {
-        data &&
-        <main>
-          <Content>
-            <ButtonText title="Excluir Nota" onClick={handleRemove} />
-            <h1>{data.title}</h1>
-            <p>{data.description}</p>
-            {data.links &&
-              <Section title="Links Úteis">
-                <Links>
-                  {
-                    data.links.map(link => (
-                      <li key={String(link.id)} >
-                        <a href={link.url} target="_blank" >
-                          {link.url}
-                        </a>
-                      </li>
-                    ))
-                  }
-                </Links>
-              </Section>
-            }
-            {
-              data.tags &&
-              <Section title="Marcadores" >
-                {
-                  data.tags.map(tag => (
-                    <Tag
-                      key={String(tag.id)}
-                      title={tag.name} ></Tag>
-                  ))
-                }
-              </Section>
-            }
-            <Button title="Voltar" onClick={handleBack} />
-          </Content>
-        </main>
-      }
+      <Main>
+        <button onClick={handleBack} >
+          <img src={CaretLeft} alt="Seta" />
+          <h2>Voltar</h2>
+        </button>
+        <Plate>
+          <img src={GambePlate} alt="Gambe" />
+          <section>
+            <h1>Spaguetti Gambe</h1>
+            <p>Massa fresca com camarões e pesto.</p>
+            <button>camarão</button>
+            <div>
+              <Counter />
+              <Button title="Incluir - R$ 25,00" />
+            </div>
+          </section>
+        </Plate>
+      </Main>
+      <Footer />
     </Container>
   )
 }

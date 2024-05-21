@@ -5,6 +5,9 @@ import { NoteItem } from "../../components/Noteitem"
 import { Section } from "../../components/Section"
 import { Button } from "../../components/Button"
 import { ButtonText } from "../../components/ButtonText"
+import { Footer } from "../../components/Footer"
+import { Select } from "../../components/Select"
+import CaretLeft from "../../assets/icons/CaretLeft.svg";
 
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
@@ -73,40 +76,29 @@ export function New() {
             <main>
                 <Form>
                     <header>
-                        <h1>Criar Nota</h1>
-                        <ButtonText title="Voltar" onClick={handleBack} />
+                        <button onClick={handleBack} >
+                            <img src={CaretLeft} alt="Seta" />
+                            <h2>Voltar</h2>
+                        </button>
+                        <h1>Adicionar Prato</h1>
                     </header>
-
-                    <Input
-                        placeholder="Título"
-                        onChange={e => setTitle(e.target.value)}
-                    />
-
-                    <Textarea
-                        placeholder="Observações"
-                        onChange={e => setDescription(e.target.value)}
-                    />
-
-                    <Section title="Links Úteis" >
-                        {
-                            links.map((link, index) => (
-                                <NoteItem
-                                    key={String(index)}
-                                    value={link}
-                                    onClick={() => handleRemoveLink(link)}
-                                />
-                            ))
-                        }
-                        <NoteItem
-                            isNew
-                            placeholder="Novo Link"
-                            value={newLink}
-                            onChange={e => setNewLink(e.target.value)}
-                            onClick={handleAddLink}
+                    <div className="FirstPart" >
+                        <Input
+                            label="Imagem do Prato"
+                            placeholder="selecione imagem"
+                            onChange={e => setTitle(e.target.value)}
                         />
-                    </Section>
 
-                    <Section title="Marcadores" >
+                        <Input
+                            label="Nome"
+                            placeholder="Ex.: Salada Cessar"
+                            onChange={e => setTitle(e.target.value)}
+                        />
+
+                        <Select
+                        />
+                    </div>
+                    <Section>
                         <div className="tags" >
                             {
                                 tags.map((tag, index) => (
@@ -127,14 +119,26 @@ export function New() {
                             >
 
                             </NoteItem>
+
+                            <Input
+                                placeholder="Preço"
+                                onChange={e => setTitle(e.target.value)}
+                            />
                         </div>
                     </Section>
+
+                    <Textarea
+                        placeholder="Observações"
+                        onChange={e => setDescription(e.target.value)}
+                    />
+
                     <Button
                         title="Salvar"
                         onClick={handleNewNote}
                     />
                 </Form>
             </main>
+            <Footer />
         </Container>
     )
 }

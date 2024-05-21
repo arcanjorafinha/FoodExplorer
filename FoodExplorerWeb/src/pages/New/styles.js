@@ -5,10 +5,11 @@ export const Container = styled.div`
     height: 100vh;
 
     display: grid;
-    grid-template-rows: 105px auto;
     grid-template-areas:
     "header"
-    "content";
+    "content"
+    "footer"
+    ; 
 
     .main{
         grid-area: content;
@@ -23,19 +24,36 @@ export const Container = styled.div`
 `;
 
 export const Form = styled.form`
-    max-width: 550px;
-    margin: 38px auto;
+    margin: 38px 0;
+    padding: 0 120px;
 
     > header{
         display: flex;
-        align-items: center;
-        justify-content: space-between;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 24px;
 
         margin-bottom: 36px;
 
-        button {
-            font-size:20px;
-            color: ${({ theme }) => theme.COLORS.GRAY_100};
+        > h1{
+            font-size: 32px;
+            font-weight: 500;
         }
+
+        >button{
+        display: flex;
+        align-items: center;
+        background: none;
+        border: none;
+        font-size: 20px;
+        gap: 10px;
+
+        color: ${({ theme }) => theme.COLORS.LIGHT_100};
+        }
+    }
+
+    > .FirstPart{
+        display: flex;
+        gap: 32px;
     }
 `;
