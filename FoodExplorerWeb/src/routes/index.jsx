@@ -7,6 +7,7 @@ import { AppAuth } from "./auth.routes";
 import { Home } from "../pages/Home";
 import { Details } from "../pages/Deatails";
 import { New } from "../pages/New";
+import { Delete } from "../pages/Delete";
 
 
 export function Routes() {
@@ -14,7 +15,7 @@ export function Routes() {
 
     return (
         <BrowserRouter>
-            {user ? <AppRoutes /> : <New />}
+            {user ? <AppRoutes /> : <Delete />}
         </BrowserRouter>
     )
 }
