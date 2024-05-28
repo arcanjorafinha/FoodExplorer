@@ -1,12 +1,12 @@
 import styled from "styled-components";
 
 export const Container = styled.footer`
-    grid-area: 'footer';
     position: relative;
     width: 100%;
     height: 77px;
     display: flex;
     align-items: center;
+    align-self: flex-end;
     justify-content: space-between;
     padding: 24px 120px;
     margin-top: 100px;

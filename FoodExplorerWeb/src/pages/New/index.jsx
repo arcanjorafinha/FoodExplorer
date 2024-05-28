@@ -3,7 +3,7 @@ import { Input } from "../../components/Input"
 import { Textarea } from "../../components/Textarea"
 import { NoteItem } from "../../components/Noteitem"
 import { Section } from "../../components/Section"
-import { Button } from "../../components/Button"
+import { CustomButton } from "../../components/CustomButton"
 import { ButtonText } from "../../components/ButtonText"
 import { Footer } from "../../components/Footer"
 import { Select } from "../../components/Select"
@@ -11,7 +11,7 @@ import CaretLeft from "../../assets/icons/CaretLeft.svg";
 
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { Container, Form } from "./styles";
+import { Container, Form, Buttons } from "./styles";
 import { api } from "../../services/api";
 
 export function New() {
@@ -73,71 +73,75 @@ export function New() {
     return (
         <Container>
             <Header />
-            <main>
-                <Form>
-                    <header>
-                        <button onClick={handleBack} >
-                            <img src={CaretLeft} alt="Seta" />
-                            <h2>Voltar</h2>
-                        </button>
-                        <h1>Adicionar Prato</h1>
-                    </header>
-                    <div className="FirstPart" >
-                        <Input
-                            label="Imagem do Prato"
-                            placeholder="selecione imagem"
-                            onChange={e => setTitle(e.target.value)}
-                        />
+            <Form>
+                <header>
+                    <button onClick={handleBack} >
+                        <img src={CaretLeft} alt="Seta" />
+                        <h2>Voltar</h2>
+                    </button>
+                    <h1>Adicionar Prato</h1>
+                </header>
+                <div className="FirstPart" >
+                    <Input
+                        label="Imagem do Prato"
+                        placeholder="selecione imagem"
+                        onChange={e => setTitle(e.target.value)}
+                    />
 
-                        <Input
-                            label="Nome"
-                            placeholder="Ex.: Salada Cessar"
-                            onChange={e => setTitle(e.target.value)}
-                        />
+                    <Input
+                        label="Nome"
+                        placeholder="Ex.: Salada Cessar"
+                        onChange={e => setTitle(e.target.value)}
+                    />
 
-                        <Select
-                        />
-                    </div>
-                    <Section>
-                        <div className="tags" >
-                            {
-                                tags.map((tag, index) => (
-                                    <NoteItem
-                                        key={String(index)}
-                                        value={tag}
-                                        onClick={() => handleRemoveTag(tag)}
-                                    ></NoteItem>
+                    <Select
+                    />
+                </div>
+                <div className="tags" >
+                    <section>
+                        <h2>Igredientes</h2>
+                        {
+                            tags.map((tag, index) => (
+                                <NoteItem
+                                    key={String(index)}
+                                    value={tag}
+                                    onClick={() => handleRemoveTag(tag)}
+                                ></NoteItem>
 
-                                ))
+                            ))
 
-                            }
-                            <NoteItem
-                                isNew
-                                placeholder="Nova tag"
-                                onChange={e => setNewTag(e.target.value)}
-                                onClick={handleAddTag}
-                            >
+                        }
+                        <NoteItem
+                            isNew
+                            placeholder="Adicionar"
+                            onChange={e => setNewTag(e.target.value)}
+                            onClick={handleAddTag}
+                        >
 
-                            </NoteItem>
+                        </NoteItem>
+                    </section>
 
-                            <Input
-                                placeholder="Preço"
-                                onChange={e => setTitle(e.target.value)}
-                            />
-                        </div>
-                    </Section>
-
+                    <Input
+                        label="Preço"
+                        placeholder="R$ 00,00"
+                        onChange={e => setTitle(e.target.value)}
+                    />
+                </div>
+                <section>
+                    <h2>Observações</h2>
                     <Textarea
-                        placeholder="Observações"
+                        placeholder="A Salada César é uma opção refrescante para o verão."
                         onChange={e => setDescription(e.target.value)}
                     />
+                </section>
 
-                    <Button
-                        title="Salvar"
+                <Buttons>
+                    <CustomButton
+                        title="Salvar Alterações"
                         onClick={handleNewNote}
                     />
-                </Form>
-            </main>
+                </Buttons>
+            </Form>
             <Footer />
         </Container>
     )
