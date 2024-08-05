@@ -31,9 +31,4 @@ export const Container = styled.div`
     > svg{
         margin-left: 30%;
     }
-
-    >input:focus{
-        border: 2px solid ${({ theme }) => theme.COLORS.LIGHT_100};
-    }
-
 `;
