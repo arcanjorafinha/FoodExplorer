@@ -5,6 +5,7 @@ import { NoteItem } from "../../components/NoteItem";
 import { CustomButton } from "../../components/CustomButton";
 import { Footer } from "../../components/Footer";
 import CaretLeft from "../../assets/icons/CaretLeft.svg";
+import UploadSimple from "../../assets/icons/UploadSimple.svg";
 
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
@@ -18,6 +19,7 @@ export function New() {
     const [category, setCategory] = useState("");
     const [ingredients, setIngredients] = useState([]);
     const [newIngredient, setNewIngredient] = useState("");
+    const [image, setImage] = useState(null);
 
     const navigate = useNavigate();
 
@@ -35,39 +37,38 @@ export function New() {
     }
 
     async function handleNewPlate() {
-        if (!title || !description || !price || !category) {
+        if (!title || !description || !price || !category || !image) {
             return alert("Preencha todos os campos obrigatórios.");
         }
         if (newIngredient) {
             return alert("Você deixou um ingrediente no campo adicionar, mas não adicionou.");
         }
 
-        const plateData = {
-            title,
-            description,
-            price,
-            category,
-            ingredients,
-        };
-
-        console.log("Enviando dados do prato:", plateData); // Adicione este log
+        const formData = new FormData();
+        formData.append('title', title);
+        formData.append('description', description);
+        formData.append('price', price);
+        formData.append('category', category);
+        formData.append('image', image);
+        ingredients.forEach(ingredient => formData.append('ingredients[]', ingredient));
 
         try {
-            await api.post("/plates", plateData);
+            await api.post("/plates", formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
             alert("Prato criado com sucesso!");
             navigate(-1);
         } catch (error) {
             console.error("Erro ao criar o prato:", error);
             if (error.response) {
-                // O servidor respondeu com um status diferente de 2xx
                 console.error("Dados do erro:", error.response.data);
                 alert(`Erro ao criar o prato: ${error.response.data.message || "Tente novamente."}`);
             } else if (error.request) {
-                // A requisição foi feita, mas nenhuma resposta foi recebida
                 console.error("Nenhuma resposta recebida:", error.request);
                 alert("Erro na comunicação com o servidor. Tente novamente.");
             } else {
-                // Algo aconteceu ao configurar a requisição
                 console.error("Erro na configuração da requisição:", error.message);
                 alert(`Erro ao criar o prato: ${error.message}`);
             }
@@ -87,6 +88,12 @@ export function New() {
                 </header>
                 <div className="FirstPart">
                     <Input
+                        label="Imagem do Prato"
+                        type="file"
+                        accept="image/*"
+                        onChange={e => setImage(e.target.files[0])}
+                    />
+                    <Input
                         label="Nome"
                         placeholder="Ex.: Salada César"
                         onChange={e => setTitle(e.target.value)}
@@ -95,11 +102,6 @@ export function New() {
                         label="Categoria"
                         placeholder="Ex.: Saladas"
                         onChange={e => setCategory(e.target.value)}
-                    />
-                    <Input
-                        label="Preço"
-                        placeholder="R$ 00,00"
-                        onChange={e => setPrice(e.target.value)}
                     />
                 </div>
                 <div className="tags">
@@ -120,6 +122,11 @@ export function New() {
                             onClick={handleAddIngredient}
                         />
                     </section>
+                    <Input
+                        label="Preço"
+                        placeholder="R$ 00,00"
+                        onChange={e => setPrice(e.target.value)}
+                    />
                 </div>
                 <section>
                     <h2>Observações</h2>
