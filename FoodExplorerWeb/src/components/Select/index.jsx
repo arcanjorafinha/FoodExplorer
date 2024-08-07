@@ -1,17 +1,20 @@
-import { Container } from './styles'
+import { Container } from './styles';
 
-export function Select() {
+export function Select({ label, value, onChange, options }) {
     return (
         <Container>
-            <label htmlFor="category">Categoria</label>
+            {label && <label htmlFor="category">{label}</label>}
             <div className="custom-select-wrapper">
-                <select id="category" name="categoria">
-                    <option value="meals">Refeição</option>
-                    <option value="deserts">Sobremesa</option>
-                    <option value="drinks">Bebida</option>
+                <select id="category" name="categoria" value={value} onChange={onChange}>
+                    <option value="">Selecione uma categoria</option>
+                    {options.map(option => (
+                        <option key={option.value} value={option.value}>
+                            {option.label}
+                        </option>
+                    ))}
                 </select>
                 <div className="custom-arrow"></div>
             </div>
         </Container>
-    )
+    );
 }

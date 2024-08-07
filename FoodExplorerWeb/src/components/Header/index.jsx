@@ -18,6 +18,10 @@ export function Header() {
         signOut();
     }
 
+    function handleNew() {
+        navigation("/new");
+    }
+
     return (
         <Container>
             <Logo>
@@ -29,7 +33,7 @@ export function Header() {
                 type="text"
                 placeholder="Busque por pratos ou igredientes"
             />
-            <Button>
+            <Button onClick={handleNew} >
                 <img src={Receipt} alt="Receita" />
                 <p>Pedidos(0)</p>
             </Button>

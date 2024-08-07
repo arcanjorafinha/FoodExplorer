@@ -4,6 +4,8 @@ import { useAuth } from '../hooks/auth';
 import { AppRoutes } from "./app.routes";
 import { AppAuth } from "./auth.routes";
 
+import { New } from "../pages/New";
+
 export function Routes() {
     const { user } = useAuth();
 
