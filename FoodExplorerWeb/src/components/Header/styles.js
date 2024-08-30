@@ -28,6 +28,7 @@ export const Logo = styled.div`
     font-weight: 700;
     font-size: 24px;
     margin-right: 32px;
+    cursor: pointer;
 
 `;
 
