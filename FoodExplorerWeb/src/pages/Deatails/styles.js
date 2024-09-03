@@ -59,6 +59,7 @@ export const Plate = styled.div`
         }
         > button{
             margin-top: 15px;
+            margin-right: 10px;
             color: ${({ theme }) => theme.COLORS.LIGHT_100};
             background-color: ${({ theme }) => theme.COLORS.DARK_1000};
             border: none;

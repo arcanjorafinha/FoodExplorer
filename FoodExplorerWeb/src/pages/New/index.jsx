@@ -23,7 +23,7 @@ export function New() {
 
     const navigate = useNavigate();
 
-    function handleBack() {
+    function handleHome() {
         navigate("/");
     }
 
@@ -80,7 +80,7 @@ export function New() {
             <Header />
             <Form>
                 <header>
-                    <button onClick={handleBack}>
+                    <button onClick={handleHome}>
                         <img src={CaretLeft} alt="Seta" />
                         <h2>Voltar</h2>
                     </button>

@@ -9,7 +9,7 @@ import Receipt from "../../assets/icons/Receipt.svg";
 import SignOut from "../../assets/icons/SignOut.svg";
 import { USER_ROLE } from "../../utils/roles";
 
-export function Header() {
+export function Header({ onSearch }) {
     const { signOut } = useAuth();
     const navigation = useNavigate();
     const { user } = useAuth();
@@ -29,14 +29,25 @@ export function Header() {
 
     return (
         <Container>
-            <Logo onClick={handleHome} >
-                <img src={Polygon} alt="Poligono" />
-                <p>food explorer</p>
-            </Logo>
+            {user.role === USER_ROLE.ADMIN ? (
+                <Logo onClick={handleHome} >
+                    <img src={Polygon} alt="Poligono" />
+                    <div>
+                        <p>food explorer</p>
+                        <span>admin</span>
+                    </div>
+                </Logo>
+            ) : (
+                <Logo onClick={handleHome} >
+                    <img src={Polygon} alt="Poligono" />
+                    <p>food explorer</p>
+                </Logo>
+            )}
             <NavInput
                 icon={FiSearch}
                 type="text"
-                placeholder="Busque por pratos ou igredientes"
+                placeholder="Busque por pratos ou ingredientes"
+                onChange={e => onSearch(e.target.value)}
             />
             {user.role === USER_ROLE.ADMIN ? (
                 <Button onClick={handleNew} >

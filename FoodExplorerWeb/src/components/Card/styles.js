@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const Container = styled.div`
     min-width: 300px;
     min-height: 460px;
+    max-width: 300px;
     background-color: ${({ theme }) => theme.COLORS.DARK_200};
     border-radius: 8px;
     padding: 15px 24px;
@@ -36,5 +37,9 @@ export const Container = styled.div`
         font-size: 32px;
         font-family: "Roboto", serif;
         font-weight: 400;
+    }
+
+    >img{
+        cursor: pointer
     }
 `;

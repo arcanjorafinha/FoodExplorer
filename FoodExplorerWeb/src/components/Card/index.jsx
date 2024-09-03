@@ -22,7 +22,7 @@ export function Card({ id, title, description, price, image }) {
     return (
         <Container>
             {user.role === USER_ROLE.ADMIN ? (
-                <img src={PencilIcon} alt="Pencil Icon" style={{ alignSelf: "end", marginBottom: "35px" }} onClick={handleEdit} />
+                <img src={PencilIcon} alt="Pencil Icon" style={{ alignSelf: "end", marginBottom: "25px" }} onClick={handleEdit} />
             ) : (
                 <img src={HeartIcon} alt="Heart Icon" style={{ alignSelf: "end" }} onClick={handleDetails} />
             )}

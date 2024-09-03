@@ -30,6 +30,19 @@ export const Logo = styled.div`
     margin-right: 32px;
     cursor: pointer;
 
+    div{
+        display: flex;
+        flex-direction: column;
+
+        span{
+            align-self: flex-end;
+            margin-top: -7px;
+            font-size: 12px;
+            color: ${({ theme }) => theme.COLORS.CAKE_200};
+            font-weight: 400;
+        }
+    }
+
 `;
 
 export const Logout = styled.button`

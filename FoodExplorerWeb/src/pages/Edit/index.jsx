@@ -6,7 +6,7 @@ import { CustomButton } from "../../components/CustomButton";
 import { Footer } from "../../components/Footer";
 import { Select } from "../../components/Select";
 import CaretLeft from "../../assets/icons/CaretLeft.svg";
-import theme from "../../styles/theme"
+import theme from "../../styles/theme";
 
 import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -14,43 +14,41 @@ import { Container, Form, Buttons } from "./styles";
 import { api } from "../../services/api";
 
 export function Edit() {
-    const navigate = useNavigate();
-    const params = useParams();
-
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [price, setPrice] = useState("");
     const [category, setCategory] = useState("");
-    const [image, setImage] = useState(null);
     const [ingredients, setIngredients] = useState([]);
     const [newIngredient, setNewIngredient] = useState("");
+    const [image, setImage] = useState(null);
+
+    const navigate = useNavigate();
+    const { id } = useParams(); // Obtém o ID do prato a partir da URL
 
     useEffect(() => {
         async function fetchPlate() {
             try {
-                const response = await api.get(`/plates/${params.id}`);
-                const { title, description, category, price, ingredients, image } = response.data;
+                const response = await api.get(`/plates/${id}`);
+                const { title, description, price, category, ingredients } = response.data;
 
                 setTitle(title);
-                setCategory(category);
-                setPrice(price);
                 setDescription(description);
+                setPrice(price);
+                setCategory(category);
                 setIngredients(ingredients.map(ingredient => ingredient.name));
-                setImage(image);
             } catch (error) {
-                console.error("Erro ao carregar o prato:", error);
-                alert("Erro ao carregar os dados do prato.");
-                navigate('/');
+                console.error("Erro ao buscar prato:", error);
             }
         }
 
         fetchPlate();
-    }, [params.id, navigate]);
+    }, [id]);
+
+    function handleBack() {
+        navigate("/");
+    }
 
     function handleAddIngredient() {
-        if (newIngredient.length < 3) {
-            return alert("Erro: Você está tentando inserir um nome de ingrediente inválido!");
-        }
         setIngredients(prevState => [...prevState, newIngredient]);
         setNewIngredient("");
     }
@@ -60,47 +58,37 @@ export function Edit() {
     }
 
     async function handleUpdatePlate() {
-        if (newIngredient.length > 0) {
-            return alert('Você deixou um ingrediente pendente no campo para adicionar.');
+        if (newIngredient) {
+            return alert("Você deixou um ingrediente no campo adicionar, mas não adicionou.");
         }
 
-        const fileUpload = new FormData();
-        if (image) {
-            fileUpload.append("image", image);
-        }
+        const formData = new FormData();
+        if (title) formData.append('title', title);
+        if (description) formData.append('description', description);
+        if (price) formData.append('price', price);
+        if (category) formData.append('category', category);
+        if (image) formData.append('image', image);
+        ingredients.forEach(ingredient => formData.append('ingredients[]', ingredient));
 
         try {
-            await api.put(`/plates/${params.id}`, {
-                title,
-                price,
-                ingredients,
-                description,
-                category
+            await api.put(`/plates/${id}`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
             });
-
-            if (image) {
-                const config = {
-                    headers: {
-                        'Content-Type': 'multipart/form-data',
-                    },
-                };
-                await api.patch(`/plates/image/${params.id}`, fileUpload, config);
-            }
-
             alert("Prato atualizado com sucesso!");
-            navigate("/");
+            navigate(-1);
         } catch (error) {
             console.error("Erro ao atualizar o prato:", error);
             alert("Erro ao atualizar o prato. Tente novamente.");
-            navigate('/');
         }
     }
 
     async function handleDeletePlate() {
-        const confirmDelete = window.confirm("Você tem certeza que deseja excluir este prato?");
+        const confirmDelete = window.confirm("Tem certeza que deseja excluir este prato?");
         if (confirmDelete) {
             try {
-                await api.delete(`/plates/${params.id}`);
+                await api.delete(`/plates/${id}`);
                 alert("Prato excluído com sucesso!");
                 navigate("/");
             } catch (error) {
@@ -108,10 +96,6 @@ export function Edit() {
                 alert("Erro ao excluir o prato. Tente novamente.");
             }
         }
-    }
-
-    function handleBack() {
-        navigate("/");
     }
 
     return (
@@ -175,7 +159,7 @@ export function Edit() {
                 <section>
                     <h2>Observações</h2>
                     <Textarea
-                        placeholder={description}
+                        placeholder={description || "Fale brevemente sobre prato e sua composição"}
                         value={description}
                         onChange={e => setDescription(e.target.value)}
                     />

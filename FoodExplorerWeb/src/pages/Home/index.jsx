@@ -10,7 +10,11 @@ import CaretLeft from "../../assets/icons/CaretLeft.svg";
 import CaretRight from "../../assets/icons/CaretRight.svg";
 
 export function Home() {
-    const [plates, setPlates] = useState([]);
+    const [plates, setPlates] = useState({
+        refeicoes: [],
+        bebidas: [],
+        sobremesas: []
+    });
     const [ingredients, setIngredients] = useState([]);
     const [ingredientsSelected, setIngredientsSelected] = useState([]);
     const [search, setSearch] = useState("");
@@ -45,7 +49,12 @@ export function Home() {
         async function fetchPlates() {
             try {
                 const response = await api.get(`/plates?title=${search}&ingredients=${ingredientsSelected.join(",")}`);
-                setPlates(response.data);
+                const categorizedPlates = {
+                    refeicoes: response.data.filter(plate => plate.category === 'refeições'),
+                    bebidas: response.data.filter(plate => plate.category === 'bebidas'),
+                    sobremesas: response.data.filter(plate => plate.category === 'sobremesas'),
+                };
+                setPlates(categorizedPlates);
             } catch (error) {
                 console.error("Erro ao buscar pratos:", error.response ? error.response.data : error.message);
             }
@@ -53,7 +62,6 @@ export function Home() {
 
         fetchPlates();
     }, [ingredientsSelected, search]);
-
 
     const handleScroll = (contentId, scrollAmount) => {
         const contentElement = document.getElementById(contentId);
@@ -77,6 +85,7 @@ export function Home() {
                         <h2>Sinta o cuidado do preparo com ingredientes selecionados</h2>
                     </div>
                 </Advertisement>
+
                 <Menu>
                     <h1>Refeições</h1>
                     <div className="MenuButtons">
@@ -84,11 +93,11 @@ export function Home() {
                             <img src={CaretLeft} alt="Caret Left" />
                         </button>
                         <button className="CaretRight" onClick={() => handleScroll('refeicoesContent', 300)}>
-                            <img src={CaretRight} alt="CaretRight" />
+                            <img src={CaretRight} alt="Caret Right" />
                         </button>
                     </div>
                     <div id="refeicoesContent">
-                        {plates.map(plate => (
+                        {plates.refeicoes.map(plate => (
                             <Card
                                 key={plate.id}
                                 id={plate.id}
@@ -100,7 +109,54 @@ export function Home() {
                         ))}
                     </div>
                 </Menu>
-                {/* Adicione outras categorias de menu aqui */}
+
+                <Menu>
+                    <h1>Bebidas</h1>
+                    <div className="MenuButtons">
+                        <button className="CaretLeft" onClick={() => handleScroll('bebidasContent', -300)}>
+                            <img src={CaretLeft} alt="Caret Left" />
+                        </button>
+                        <button className="CaretRight" onClick={() => handleScroll('bebidasContent', 300)}>
+                            <img src={CaretRight} alt="Caret Right" />
+                        </button>
+                    </div>
+                    <div id="bebidasContent">
+                        {plates.bebidas.map(plate => (
+                            <Card
+                                key={plate.id}
+                                id={plate.id}
+                                title={plate.title}
+                                description={plate.description}
+                                price={plate.price}
+                                image={`${api.defaults.baseURL}/files/${plate.image}`}
+                            />
+                        ))}
+                    </div>
+                </Menu>
+
+                <Menu>
+                    <h1>Sobremesas</h1>
+                    <div className="MenuButtons">
+                        <button className="CaretLeft" onClick={() => handleScroll('sobremesasContent', -300)}>
+                            <img src={CaretLeft} alt="Caret Left" />
+                        </button>
+                        <button className="CaretRight" onClick={() => handleScroll('sobremesasContent', 300)}>
+                            <img src={CaretRight} alt="Caret Right" />
+                        </button>
+                    </div>
+                    <div id="sobremesasContent">
+                        {plates.sobremesas.map(plate => (
+                            <Card
+                                key={plate.id}
+                                id={plate.id}
+                                title={plate.title}
+                                description={plate.description}
+                                price={plate.price}
+                                image={`${api.defaults.baseURL}/files/${plate.image}`}
+                            />
+                        ))}
+                    </div>
+                </Menu>
             </BodyContainer>
             <Footer />
         </Container>
