@@ -27,6 +27,10 @@ export function Header({ onSearch }) {
         navigation("/new");
     }
 
+    function handleOrders() {
+        navigation("/orders");
+    }
+
     return (
         <Container>
             {user.role === USER_ROLE.ADMIN ? (
@@ -54,7 +58,7 @@ export function Header({ onSearch }) {
                     <p>Novo Prato</p>
                 </Button>
             ) : (
-                <Button onClick={handleNew} >
+                <Button onClick={handleOrders} >
                     <img src={Receipt} alt="Receita" />
                     <p>Pedidos(0)</p>
                 </Button>
