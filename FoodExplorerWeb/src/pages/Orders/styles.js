@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Container = styled.div`
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -23,6 +23,11 @@ export const Main = styled.div`
         width: 50vw;
         height: 100vh;
 
+        div{
+            padding: 10px 10px;
+            min-width: 25vw;
+            overflow-y: scroll;
+        }
         h2{
             font-size: 32px;
             font-weight: 500;

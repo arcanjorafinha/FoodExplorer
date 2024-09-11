@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Container } from "./styles";
 import { Counter } from "../Counter";
 import { Button } from "../Button";
@@ -6,10 +7,12 @@ import PencilIcon from "../../assets/icons/Pencil.svg";
 import { useAuth } from "../../hooks/auth";
 import { USER_ROLE } from "../../utils/roles";
 import { useNavigate } from "react-router-dom";
+import { api } from "../../services/api";
 
 export function Card({ id, title, description, price, image }) {
     const navigate = useNavigate();
     const { user } = useAuth();
+    const [count, setCount] = useState(0);
 
     function handleDetails() {
         navigate(`/details/${id}`);
@@ -17,6 +20,27 @@ export function Card({ id, title, description, price, image }) {
 
     function handleEdit() {
         navigate(`/edit/${id}`);
+    }
+
+    // Função para adicionar o prato ao pedido (Orders)
+    async function handleAddToOrder() {
+        try {
+            const orderItem = {
+                plate_id: id,
+                quantity: count
+            };
+
+            // Chama a API para adicionar o item ao pedido
+            await api.post("/orders", {
+                status: "pendente",
+                orders: [orderItem],
+            });
+
+            // Exibe uma mensagem de sucesso ou redireciona para o carrinho
+            navigate("/orders");
+        } catch (error) {
+            console.error("Erro ao adicionar prato ao pedido:", error);
+        }
     }
 
     return (
@@ -34,8 +58,8 @@ export function Card({ id, title, description, price, image }) {
 
             {user.role !== USER_ROLE.ADMIN && (
                 <div>
-                    <Counter />
-                    <Button title="incluir" onClick={handleDetails} />
+                    <Counter count={count} setCount={setCount} />
+                    <Button title="incluir" onClick={handleAddToOrder} /> {/* Usa a função handleAddToOrder */}
                 </div>
             )}
         </Container>

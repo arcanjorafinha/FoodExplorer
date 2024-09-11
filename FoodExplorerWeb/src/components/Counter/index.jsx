@@ -1,11 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Container } from './styles';
 import Plus from '../../assets/icons/Plus.svg';
 import Minus from '../../assets/icons/Minus.svg';
 
-export function Counter() {
-    const [count, setCount] = useState(0);
-
+export function Counter({ count, setCount }) {
     const handleMinusClick = () => {
         if (count > 0) {
             setCount(count - 1);
