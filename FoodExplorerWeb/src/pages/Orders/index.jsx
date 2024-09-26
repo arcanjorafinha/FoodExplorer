@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { api } from "../../services/api";
 import { Container, Main } from "./styles";
@@ -12,17 +12,16 @@ export function Orders() {
     const [total, setTotal] = useState(0);
     const navigate = useNavigate();
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         async function fetchOrder() {
             const response = await api.get('/orders');
             const orderData = response.data;
 
-            console.log(orderData);  // Verifique a estrutura dos dados aqui
+            console.log(orderData);
             setData(orderData);
 
-            // Converte o preço para número e calcula o total
             const orderTotal = orderData.items.reduce((acc, item) => {
-                const price = parseFloat(item.price.replace(',', '.'));  // Converte o preço para número
+                const price = parseFloat(item.price.replace(',', '.'));
                 return acc + price * item.quantity;
             }, 0);
 
@@ -32,22 +31,18 @@ export function Orders() {
         fetchOrder();
     }, []);
 
-
-
     function handleRemoveItem(itemId) {
         console.log("Removendo item com ID:", itemId);
         api.delete(`/orders/items/${itemId}`)
             .then(() => {
-                // Atualiza a interface após exclusão
                 setData((prevData) => ({
                     ...prevData,
                     items: prevData.items.filter(item => item.id !== itemId)
                 }));
 
-                // Recalcula o total
                 setTotal((prevTotal) => {
                     const removedItem = data.items.find(item => item.id === itemId);
-                    const removedItemPrice = parseFloat(removedItem.price.replace(',', '.'));  // Converte o preço para número
+                    const removedItemPrice = parseFloat(removedItem.price.replace(',', '.'));
                     return prevTotal - removedItemPrice * removedItem.quantity;
                 });
             })
@@ -56,12 +51,13 @@ export function Orders() {
             });
     }
 
-
     return (
         <Container>
             <Header />
-            {data && (
-                <Main>
+            {!data ? (
+                <p>Carregando...</p>
+            ) : (
+                <Main key={data.id}>
                     <div className="orders">
                         <h2>Meu Pedido</h2>
                         <div>
