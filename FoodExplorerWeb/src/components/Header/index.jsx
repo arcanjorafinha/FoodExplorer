@@ -7,6 +7,7 @@ import { NavInput } from "../../components/NavInput";
 import { FiSearch } from 'react-icons/fi';
 import Receipt from "../../assets/icons/Receipt.svg";
 import SignOut from "../../assets/icons/SignOut.svg";
+import Hamburger from "../../assets/icons/Menu.svg"
 import { USER_ROLE } from "../../utils/roles";
 
 export function Header({ onSearch }) {
@@ -33,6 +34,7 @@ export function Header({ onSearch }) {
 
     return (
         <Container>
+            <img className='Hamburger' src={Hamburger} alt="Menu Hamburger" />
             {user.role === USER_ROLE.ADMIN ? (
                 <Logo onClick={handleHome} >
                     <img src={Polygon} alt="Poligono" />
@@ -47,12 +49,14 @@ export function Header({ onSearch }) {
                     <p>food explorer</p>
                 </Logo>
             )}
-            <NavInput
-                icon={FiSearch}
-                type="text"
-                placeholder="Busque por pratos ou ingredientes"
-                onChange={e => onSearch(e.target.value)}
-            />
+            <div className='nav' >
+                <NavInput
+                    icon={FiSearch}
+                    type="text"
+                    placeholder="Busque por pratos ou ingredientes"
+                    onChange={e => onSearch(e.target.value)}
+                />
+            </div>
             {user.role === USER_ROLE.ADMIN ? (
                 <Button onClick={handleNew} >
                     <p>Novo Prato</p>

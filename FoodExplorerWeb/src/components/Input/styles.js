@@ -9,7 +9,7 @@ export const Container = styled.div`
     color: ${({ theme }) => theme.COLORS.LIGHT_100};
 
     >input{
-        max-height: 56px;
+        max-height: 3.5rem;
         width: 100%;
         min-width: 200px;
 
@@ -34,8 +34,8 @@ export const Container = styled.div`
 
 export const Label = styled.label`
     align-self: flex-start;
-    margin-bottom: 12px;
-    font-size: 16px;
+    margin-bottom: 0.75rem;
+    font-size: 1rem;
 `;
 
 export const FileInputWrapper = styled.div`
@@ -48,7 +48,7 @@ export const FileInputWrapper = styled.div`
         opacity: 0;
         position: absolute;
         width: 100%;
-        height: 56px;
+        height: 3.5rem;
         cursor: pointer;
     }
 `;
@@ -58,7 +58,7 @@ export const FileInputLabel = styled.label`
     align-items: center;
     justify-content: center;
     width: 100%;
-    height: 48px;
+    height: 3rem;
     background-color: ${({ theme }) => theme.COLORS.DARK_900};
     border-radius: 5px;
     cursor: pointer;
