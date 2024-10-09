@@ -11,7 +11,7 @@ export const Container = styled.div`
     >input{
         max-height: 3.5rem;
         width: 100%;
-        min-width: 200px;
+        min-width: 12.5rem;;
 
         color: ${({ theme }) => theme.COLORS.LIGHT_100};
         border: none;

@@ -28,6 +28,7 @@ export const Container = styled.footer`
 
     @media (max-width: ${DEVICE_BREAKPOINTS.LG}){
         padding: 1.5rem 2rem;
+        margin-top: 0;
 
         >div{
             >img{

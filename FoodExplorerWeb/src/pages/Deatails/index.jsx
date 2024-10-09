@@ -12,6 +12,7 @@ export function Details() {
   const [data, setData] = useState(null);
   const { id } = useParams();
   const navigate = useNavigate();
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
     async function fetchPlate() {
@@ -26,6 +27,26 @@ export function Details() {
     navigate(-1);
   }
 
+  async function handleAddToOrder() {
+    try {
+      const orderItem = {
+        plate_id: id,
+        quantity: count
+      };
+
+      // Chama a API para adicionar o item ao pedido
+      await api.post("/orders", {
+        status: "pendente",
+        orders: [orderItem],
+      });
+
+      // Exibe uma mensagem de sucesso ou redireciona para o carrinho
+      navigate("/orders");
+    } catch (error) {
+      console.error("Erro ao adicionar prato ao pedido:", error);
+    }
+  }
+
   return (
     <Container>
       <Header />
@@ -36,7 +57,7 @@ export function Details() {
             <h2>Voltar</h2>
           </button>
           <Plate>
-            <img src={`${api.defaults.baseURL}/files/${data.image}`} alt={data.title} />
+            <img className="plateImg" src={`${api.defaults.baseURL}/files/${data.image}`} alt={data.title} />
             <section>
               <h1>{data.title}</h1>
               <p>{data.description}</p>
@@ -44,8 +65,8 @@ export function Details() {
                 <button key={ingredient.id}>{ingredient.name}</button>
               ))}
               <div>
-                <Counter />
-                <Button title={`Incluir - R$ ${data.price}`} />
+                <Counter count={count} setCount={setCount} />
+                <Button title={`Incluir - R$ ${data.price}`} onClick={handleAddToOrder} />
               </div>
             </section>
           </Plate>

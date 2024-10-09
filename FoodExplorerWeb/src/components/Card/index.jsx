@@ -51,7 +51,7 @@ export function Card({ id, title, description, price, image }) {
                 <img src={HeartIcon} alt="Heart Icon" style={{ alignSelf: "end" }} onClick={handleDetails} />
             )}
 
-            <img src={image} alt={title} style={{ width: '176px', height: '176px' }} />
+            <img src={image} onClick={handleDetails} alt={title} className='plateImg' />
             <h1>{title}</h1>
             <h2>{description}</h2>
             <span>R$ {price}</span>

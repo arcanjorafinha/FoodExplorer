@@ -4,13 +4,13 @@ export const Container = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 14px;
+    gap: 0.875rem;
     font-family: "Roboto", serif;
     font-weight: 700;
-    font-size: 20px;
+    font-size: 1.25rem;
 
     >img{
         cursor: pointer;
-        padding: 7px;;
+        padding: 0.4375rem;
     }
 `;
