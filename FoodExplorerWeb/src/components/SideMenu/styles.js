@@ -22,14 +22,18 @@ export const MenuContent = styled.div`
     height: 70vh;
 
     button {
+        width: 100%;
         display: flex;
         align-items: center;
         justify-content: flex-start;
         background: none;
         border: none;
-        color: ${({ theme }) => theme.COLORS.LIGHT_100};
-        font-size: 1.5rem;
+        color: ${({ theme }) => theme.COLORS.LIGHT_300};
+        font-size: 1.8rem;
         cursor: pointer;
+        border-bottom: 0.2px solid;
+        border-color: ${({ theme }) => theme.COLORS.LIGHT_600};
+        margin-bottom: 1rem;
 
         img {
             margin-right: 1rem;
@@ -38,7 +42,8 @@ export const MenuContent = styled.div`
         &:hover {
             background-color: ${({ theme }) => theme.COLORS.DARK_400};
         }
-    }
+    }   
+
 `;
 
 export const Overlay = styled.div`

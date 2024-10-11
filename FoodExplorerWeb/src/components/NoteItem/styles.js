@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { DEVICE_BREAKPOINTS } from "../../styles/deviceBreakpoints";
 
 
 export const Container = styled.div`
@@ -12,8 +13,8 @@ export const Container = styled.div`
 
     border: ${({ theme, isNew }) => isNew ? `1px dashed ${theme.COLORS.LIGHT_500}` : "none"};
 
-    border-radius: 8px;
-    padding-right: 16px; 
+    border-radius: 0.5rem;
+    padding-right: 1rem; 
 
     >button{
         border: none;
@@ -28,10 +29,10 @@ export const Container = styled.div`
     }
 
     >input{
-        height: 32px;
+        height: 2rem;
         width: 100%;
 
-        padding: 10px 16px;
+        padding: 0.625rem 1rem;
 
         color: ${({ theme }) => theme.COLORS.WHITE};
         background: transparent;
@@ -40,5 +41,17 @@ export const Container = styled.div`
         &:placeholder{
             color: ${({ theme }) => theme.COLORS.GRAY_300};
         }
+    }
+
+    @media (max-width: ${DEVICE_BREAKPOINTS.LG}){
+        width: 20%;
+    }
+
+    @media (max-width: ${DEVICE_BREAKPOINTS.MD}){
+        width: 25%;
+    }
+
+    @media (max-width: ${DEVICE_BREAKPOINTS.SM}){
+        width: 35%;
     }
 `;  

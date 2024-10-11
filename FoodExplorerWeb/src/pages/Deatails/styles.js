@@ -48,6 +48,7 @@ export const Plate = styled.div`
     }
 
     > section {
+        padding-left: 2rem;
         >h1{
             font-size: 5rem;
             font-weight: 500;
@@ -74,6 +75,16 @@ export const Plate = styled.div`
         }
     }
 
+    @media (max-width: ${DEVICE_BREAKPOINTS.XL}){
+        section{
+            div{
+                button{
+                    min-width: 10rem;
+                }
+            }
+        }
+    }
+
     @media (max-width: ${DEVICE_BREAKPOINTS.LG}){
         display: flex;
         flex-direction: column;
@@ -84,7 +95,6 @@ export const Plate = styled.div`
         }
 
         section{
-
             text-align: center;
             h1{
                 font-size: 3rem;

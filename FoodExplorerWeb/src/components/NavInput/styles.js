@@ -34,6 +34,12 @@ export const Container = styled.div`
         margin-left: 30%;
     }
 
+    @media (max-width: ${DEVICE_BREAKPOINTS.XL}){
+        > svg{
+            margin-left: 1rem;
+        }
+    }
+
     @media (max-width: ${DEVICE_BREAKPOINTS.LG}){
         padding: 0 2.5rem;
 

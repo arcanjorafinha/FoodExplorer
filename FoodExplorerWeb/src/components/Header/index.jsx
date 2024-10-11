@@ -8,6 +8,7 @@ import { FiSearch } from 'react-icons/fi';
 import Receipt from "../../assets/icons/Receipt.svg";
 import SignOut from "../../assets/icons/SignOut.svg";
 import Hamburger from "../../assets/icons/Menu.svg";
+import Add from "../../assets/icons/Add.svg"
 import { USER_ROLE } from "../../utils/roles";
 import { useState } from 'react'; // Importe useState
 import { SideMenu } from '../SideMenu'; // Importe o novo SideMenu
@@ -67,6 +68,7 @@ export function Header({ onSearch }) {
                 </div>
                 {user.role === USER_ROLE.ADMIN ? (
                     <Button onClick={handleNew}>
+                        <img src={Add} alt="Add" />
                         <p>Novo Prato</p>
                     </Button>
                 ) : (

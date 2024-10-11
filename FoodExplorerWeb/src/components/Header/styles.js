@@ -37,6 +37,12 @@ export const Container = styled.header`
         }
     }
 
+    @media (max-width: ${DEVICE_BREAKPOINTS.MD}){
+        .Hamburger{
+            margin-right: 1rem;
+        }
+    }
+
 
 
 `;
@@ -103,6 +109,10 @@ export const Button = styled.button`
     gap: 8px;
     margin-left: 2rem;
 
+    img {
+        width: 2rem;
+    }
+
     @media (max-width: ${DEVICE_BREAKPOINTS.LG}){
         background: none;
         padding: 0rem;
@@ -111,6 +121,13 @@ export const Button = styled.button`
 
         >p{
             display:none;
+        }
+
+    }
+
+    &NewPlateAdm{
+        @media (max-width: ${DEVICE_BREAKPOINTS.LG}){
+            display: none;
         }
     }
 `;
