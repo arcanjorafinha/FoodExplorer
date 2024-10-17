@@ -12,12 +12,14 @@ import Add from "../../assets/icons/Add.svg"
 import { USER_ROLE } from "../../utils/roles";
 import { useState } from 'react'; // Importe useState
 import { SideMenu } from '../SideMenu'; // Importe o novo SideMenu
+import { useCart } from "../../hooks/cart";
 
 export function Header({ onSearch }) {
     const [isMenuOpen, setIsMenuOpen] = useState(false); // Controle de abertura do menu
     const { signOut } = useAuth();
     const navigation = useNavigate();
     const { user } = useAuth();
+    const { cartCount } = useCart();
 
     function handleSignOut() {
         navigation("/");
@@ -74,7 +76,7 @@ export function Header({ onSearch }) {
                 ) : (
                     <Button onClick={handleOrders}>
                         <img src={Receipt} alt="Receita" />
-                        <p>Pedidos(0)</p>
+                        <p>Pedidos({cartCount})</p>
                     </Button>
                 )}
                 <Logout onClick={handleSignOut}>

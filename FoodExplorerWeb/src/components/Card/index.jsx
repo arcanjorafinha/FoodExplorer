@@ -8,10 +8,12 @@ import { useAuth } from "../../hooks/auth";
 import { USER_ROLE } from "../../utils/roles";
 import { useNavigate } from "react-router-dom";
 import { api } from "../../services/api";
+import { useCart } from "./../../hooks/cart"; // Importa o hook do contexto
 
 export function Card({ id, title, description, price, image }) {
     const navigate = useNavigate();
     const { user } = useAuth();
+    const { updateCartCount } = useCart(); // Função para atualizar o valor do carrinho
     const [count, setCount] = useState(0);
 
     function handleDetails() {
@@ -36,8 +38,12 @@ export function Card({ id, title, description, price, image }) {
                 orders: [orderItem],
             });
 
-            // Exibe uma mensagem de sucesso ou redireciona para o carrinho
-            navigate("/orders");
+            // Atualiza o contador global de itens no carrinho
+            const response = await api.get("/orders");
+            updateCartCount(response.data.items.length); // Atualiza o contador global
+
+            // Exibe uma mensagem de sucesso
+            alert("Pedido adicionado ao carrinho");
         } catch (error) {
             console.error("Erro ao adicionar prato ao pedido:", error);
         }

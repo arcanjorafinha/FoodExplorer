@@ -6,10 +6,12 @@ import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";
 import { Order } from "../../components/Order";
 import { PaymentBox } from "../../components/PaymentBox";
+import { useCart } from "../../hooks/cart"; // Importa o hook do contexto
 
 export function Orders() {
     const [data, setData] = useState(null);
     const [total, setTotal] = useState(0);
+    const { updateCartCount } = useCart(); // Função para atualizar o valor do carrinho
     const navigate = useNavigate();
 
     useLayoutEffect(() => {
@@ -31,10 +33,12 @@ export function Orders() {
         fetchOrder();
     }, []);
 
+    // Função para remover item do pedido e atualizar o contador global
     function handleRemoveItem(itemId) {
         console.log("Removendo item com ID:", itemId);
         api.delete(`/orders/items/${itemId}`)
             .then(() => {
+                // Atualiza os itens e o total
                 setData((prevData) => ({
                     ...prevData,
                     items: prevData.items.filter(item => item.id !== itemId)
@@ -45,6 +49,9 @@ export function Orders() {
                     const removedItemPrice = parseFloat(removedItem.price.replace(',', '.'));
                     return prevTotal - removedItemPrice * removedItem.quantity;
                 });
+
+                // Atualiza o contador global de itens no carrinho
+                updateCartCount(data.items.length - 1); // Decrementa o contador global
             })
             .catch(error => {
                 console.error("Erro ao remover item:", error);
@@ -65,7 +72,7 @@ export function Orders() {
                                 <Order
                                     key={item.id}
                                     order={item}
-                                    onRemove={handleRemoveItem}
+                                    onRemove={handleRemoveItem} // Passa a função de remoção
                                 />
                             ))}
                         </div>
