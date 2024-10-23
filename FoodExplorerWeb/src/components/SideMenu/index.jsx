@@ -23,11 +23,17 @@ export function SideMenu({ isOpen, onClose, onSearch }) {
         navigation("/New")
     }
 
-    if (!isOpen) return null; // Se o menu estiver fechado, não renderiza nada
+    function handleKeyPress(event) {
+        if (event.key === 'Enter') {
+            onClose();
+        }
+    }
+
+    if (!isOpen) return null;
 
     return (
         <>
-            <Overlay onClick={onClose} /> {/* O fundo escuro ao clicar fora do menu */}
+            <Overlay onClick={onClose} />
             <Container>
                 <CloseButton>
                     <img src={CloseOut} onClick={onClose} alt="" />
@@ -39,6 +45,7 @@ export function SideMenu({ isOpen, onClose, onSearch }) {
                         type="text"
                         placeholder="Busque por pratos ou ingredientes"
                         onChange={e => onSearch(e.target.value)}
+                        onKeyPress={handleKeyPress}
                     />
                     {user.role === USER_ROLE.ADMIN ? (
                         <div className="sideOptions">

@@ -4,7 +4,7 @@ import { Textarea } from "../../components/Textarea";
 import { NoteItem } from "../../components/NoteItem";
 import { CustomButton } from "../../components/CustomButton";
 import { Footer } from "../../components/Footer";
-import { Select } from "../../components/Select"; // Importando o Select
+import { Select } from "../../components/Select";
 import CaretLeft from "../../assets/icons/CaretLeft.svg";
 
 import { useNavigate } from "react-router-dom";

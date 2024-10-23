@@ -14,7 +14,6 @@ export function Order({ order, onRemove }) {
             <div>
                 <p>{`${order.quantity}x ${order.title}`}</p>
                 <span onClick={() => {
-                    console.log("ID do item:", order.id); // Adicione este log
                     onRemove(order.id);
                 }}>Excluir</span>
 

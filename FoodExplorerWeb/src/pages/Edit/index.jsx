@@ -23,7 +23,7 @@ export function Edit() {
     const [image, setImage] = useState(null);
 
     const navigate = useNavigate();
-    const { id } = useParams(); // Obtém o ID do prato a partir da URL
+    const { id } = useParams();
 
     useEffect(() => {
         async function fetchPlate() {

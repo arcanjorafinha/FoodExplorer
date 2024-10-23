@@ -1,4 +1,4 @@
-import { RiShutDownLine } from 'react-icons/ri';
+import { useState } from 'react';
 import { Container, Logout, Logo, Button } from "./styles";
 import { useAuth } from "../../hooks/auth";
 import { useNavigate } from 'react-router-dom';
@@ -8,38 +8,34 @@ import { FiSearch } from 'react-icons/fi';
 import Receipt from "../../assets/icons/Receipt.svg";
 import SignOut from "../../assets/icons/SignOut.svg";
 import Hamburger from "../../assets/icons/Menu.svg";
-import Add from "../../assets/icons/Add.svg"
+import Add from "../../assets/icons/Add.svg";
 import { USER_ROLE } from "../../utils/roles";
-import { useState } from 'react'; // Importe useState
-import { SideMenu } from '../SideMenu'; // Importe o novo SideMenu
-import { useCart } from "../../hooks/cart";
+import { SideMenu } from '../SideMenu';
 
 export function Header({ onSearch }) {
-    const [isMenuOpen, setIsMenuOpen] = useState(false); // Controle de abertura do menu
-    const { signOut } = useAuth();
-    const navigation = useNavigate();
-    const { user } = useAuth();
-    const { cartCount } = useCart();
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const { signOut, cartItems, user } = useAuth();
+    const navigate = useNavigate();
 
     function handleSignOut() {
-        navigation("/");
+        navigate("/");
         signOut();
     }
 
     function handleHome() {
-        navigation("/");
+        navigate("/");
     }
 
     function handleNew() {
-        navigation("/new");
+        navigate("/new");
     }
 
     function handleOrders() {
-        navigation("/orders");
+        navigate("/orders");
     }
 
     function toggleMenu() {
-        setIsMenuOpen(!isMenuOpen); // Alterna o estado do menu
+        setIsMenuOpen(!isMenuOpen);
     }
 
     return (
@@ -48,7 +44,7 @@ export function Header({ onSearch }) {
                 <img className='Hamburger' src={Hamburger} alt="Menu Hamburger" onClick={toggleMenu} />
                 {user.role === USER_ROLE.ADMIN ? (
                     <Logo onClick={handleHome}>
-                        <img src={Polygon} alt="Poligono" />
+                        <img src={Polygon} alt="Polígono" />
                         <div>
                             <p>food explorer</p>
                             <span>admin</span>
@@ -56,7 +52,7 @@ export function Header({ onSearch }) {
                     </Logo>
                 ) : (
                     <Logo onClick={handleHome}>
-                        <img src={Polygon} alt="Poligono" />
+                        <img src={Polygon} alt="Polígono" />
                         <p>food explorer</p>
                     </Logo>
                 )}
@@ -76,7 +72,7 @@ export function Header({ onSearch }) {
                 ) : (
                     <Button onClick={handleOrders}>
                         <img src={Receipt} alt="Receita" />
-                        <p>Pedidos({cartCount})</p>
+                        <p>Pedidos({cartItems})</p>
                     </Button>
                 )}
                 <Logout onClick={handleSignOut}>
@@ -84,7 +80,6 @@ export function Header({ onSearch }) {
                 </Logout>
             </Container>
 
-            {/* Renderiza o SideMenu e passa as props */}
             <SideMenu
                 isOpen={isMenuOpen}
                 onClose={toggleMenu}
@@ -93,4 +88,3 @@ export function Header({ onSearch }) {
         </>
     );
 }
-

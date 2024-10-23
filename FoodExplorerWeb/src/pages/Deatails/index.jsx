@@ -34,13 +34,11 @@ export function Details() {
         quantity: count
       };
 
-      // Chama a API para adicionar o item ao pedido
       await api.post("/orders", {
         status: "pendente",
         orders: [orderItem],
       });
 
-      // Exibe uma mensagem de sucesso ou redireciona para o carrinho
       navigate("/orders");
     } catch (error) {
       console.error("Erro ao adicionar prato ao pedido:", error);

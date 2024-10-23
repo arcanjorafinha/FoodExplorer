@@ -8,12 +8,12 @@ import { useAuth } from "../../hooks/auth";
 import { USER_ROLE } from "../../utils/roles";
 import { useNavigate } from "react-router-dom";
 import { api } from "../../services/api";
-import { useCart } from "./../../hooks/cart"; // Importa o hook do contexto
+import { useCart } from "./../../hooks/cart";
 
 export function Card({ id, title, description, price, image }) {
     const navigate = useNavigate();
     const { user } = useAuth();
-    const { updateCartCount } = useCart(); // Função para atualizar o valor do carrinho
+    const { updateCartCount } = useCart();
     const [count, setCount] = useState(0);
 
     function handleDetails() {
@@ -24,7 +24,6 @@ export function Card({ id, title, description, price, image }) {
         navigate(`/edit/${id}`);
     }
 
-    // Função para adicionar o prato ao pedido (Orders)
     async function handleAddToOrder() {
         try {
             const orderItem = {
@@ -32,17 +31,14 @@ export function Card({ id, title, description, price, image }) {
                 quantity: count
             };
 
-            // Chama a API para adicionar o item ao pedido
             await api.post("/orders", {
                 status: "pendente",
                 orders: [orderItem],
             });
 
-            // Atualiza o contador global de itens no carrinho
             const response = await api.get("/orders");
-            updateCartCount(response.data.items.length); // Atualiza o contador global
+            updateCartCount(response.data.items.length);
 
-            // Exibe uma mensagem de sucesso
             alert("Pedido adicionado ao carrinho");
         } catch (error) {
             console.error("Erro ao adicionar prato ao pedido:", error);
@@ -65,7 +61,7 @@ export function Card({ id, title, description, price, image }) {
             {user.role !== USER_ROLE.ADMIN && (
                 <div>
                     <Counter count={count} setCount={setCount} />
-                    <Button title="incluir" onClick={handleAddToOrder} /> {/* Usa a função handleAddToOrder */}
+                    <Button title="incluir" onClick={handleAddToOrder} />
                 </div>
             )}
         </Container>
